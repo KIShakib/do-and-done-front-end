@@ -5,9 +5,49 @@ import AddTodo from "./AddTodo/AddTodo";
 
 const ToDo = () => {
   const [modalOpen, setModalOpen] = useState(false);
+
+  const todoList = [
+    {
+      _id: 1,
+      taskName: "Khabo",
+      addedTime: "10:45",
+      description: "hfajksdfh sdahfjaskdhfas sdafhskjdff",
+      status: "To-Do",
+    },
+    {
+      _id: 2,
+      taskName: "Porbo",
+      addedTime: "10:45",
+      description: "hfajksdfh sdahfjaskdhfas sdafhskjdff",
+      status: "Completed",
+    },
+    {
+      _id: 3,
+      taskName: "Ghumabo",
+      addedTime: "10:45",
+      description: "hfajksdfh sdahfjaskdhfas sdafhskjdff sdafhskjdff",
+      status: "To-Do",
+    },
+    {
+      _id: 3,
+      taskName: "Ghumabo",
+      addedTime: "10:45",
+      description: "hfajksdfh sdahfjaskdhfas sdafhskjdff sdafhskjdff",
+      status: "To-Do",
+    },
+    {
+      _id: 3,
+      taskName: "Ghumabo",
+      addedTime: "10:45",
+      description: "hfajksdfh sdahfjaskdhfas sdafhskjdff sdafhskjdff",
+      status: "To-Do",
+    },
+  ];
+
+
   return (
     <div className="w-2/5 mx-auto">
-      <ToDoList />
+      <ToDoList todoList={todoList} />
 
       <div className="flex justify-end">
         <button onClick={() => setModalOpen(!modalOpen)}>
@@ -20,8 +60,7 @@ const ToDo = () => {
         <AddTodo
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
-          // user={user}
-          // editUserInfo={editUserInfo}
+          todoList={todoList}
         />
       )}
     </div>

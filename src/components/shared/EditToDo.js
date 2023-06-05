@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 
-const AddTodo = ({ setModalOpen, modalOpen, todoList }) => {
+const EditToDo = ({ setEditModalOpen, editModalOpen, singleToDo }) => {
   const [date, setDate] = useState(new Date());
 
   const {
@@ -21,28 +21,24 @@ const AddTodo = ({ setModalOpen, modalOpen, todoList }) => {
       description: data.description,
       status: "To-Do",
     };
-
-    console.log(todoList);
-    todoList.push(newToDo);
-    console.log(todoList);
   };
 
   return (
     <div className="fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
       <div
-        onClick={() => setModalOpen(!modalOpen)}
+        onClick={() => setEditModalOpen(!editModalOpen)}
         className="absolute w-full h-full opacity-60 bg-blend-overlay bg-black"
       ></div>
       <div className="modal-container bg-secondary w-11/12 md:max-w-md mx-auto rounded-sm z-50 overflow-y-auto">
         <div className="modal-content py-4 text-left">
           <div className="flex justify-between items-center pb-3 px-6">
             <h2 className="text-2xl font-semibold font-barlow tracking-wide">
-              Add Your New To-Do
+              Edit Your To-Do
             </h2>
             <div className="modal-close cursor-pointer z-50">
               <button
                 className="w-8 h-8 flex justify-center items-center rounded-full border-primary border-2 hover:bg-primary duration-200 text-primary"
-                onClick={() => setModalOpen(!modalOpen)}
+                onClick={() => setEditModalOpen(!editModalOpen)}
               >
                 <svg
                   className="fill-current text-secondary"
@@ -73,6 +69,7 @@ const AddTodo = ({ setModalOpen, modalOpen, todoList }) => {
                   name="title"
                   required
                   type="text"
+                  defaultValue={singleToDo?.taskName}
                 />
               </label>
 
@@ -85,6 +82,7 @@ const AddTodo = ({ setModalOpen, modalOpen, todoList }) => {
                   {...register("description", { required: true })}
                   className="border px-2 outline-none border-none focus:outline-primary"
                   name="description"
+                  defaultValue={singleToDo?.description}
                   required
                   type="text"
                   rows="3"
@@ -119,4 +117,4 @@ const AddTodo = ({ setModalOpen, modalOpen, todoList }) => {
   );
 };
 
-export default AddTodo;
+export default EditToDo;
