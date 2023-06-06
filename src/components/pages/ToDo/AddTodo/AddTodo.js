@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
+import { useAddToDoMutation } from "../../../../features/todos/todosSlice";
+import { toast } from "react-hot-toast";
 
-const AddTodo = ({ setModalOpen, modalOpen, todoList }) => {
+const AddTodo = ({ setModalOpen, modalOpen }) => {
   const [date, setDate] = useState(new Date());
 
   const {
@@ -13,18 +15,25 @@ const AddTodo = ({ setModalOpen, modalOpen, todoList }) => {
     formState: { errors },
   } = useForm();
 
-  const addToDo = (data) => {
+  const [addToDoIntoDB, { data, isError, error, isLoading, isSuccess }] =
+    useAddToDoMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("To-Do Added...");
+      setModalOpen(false);
+    }
+  }, [isSuccess, setModalOpen]);
+  console.log(data);
+
+  const addToDo = (todo) => {
     const newToDo = {
-      _id: 88,
-      taskName: data.title,
+      taskName: todo.title,
       addedTime: date,
-      description: data.description,
+      description: todo.description,
       status: "To-Do",
     };
-
-    console.log(todoList);
-    todoList.push(newToDo);
-    console.log(todoList);
+    addToDoIntoDB(newToDo);
   };
 
   return (
@@ -108,7 +117,7 @@ const AddTodo = ({ setModalOpen, modalOpen, todoList }) => {
                   type="submit"
                   className="border px-8 font-semibold rounded-sm hover:bg-primary duration-200 hover:text-white"
                 >
-                  Add To-Do
+                  {isLoading ? <div className="loader"></div> : "Add To-Do"}
                 </button>
               </div>
             </form>

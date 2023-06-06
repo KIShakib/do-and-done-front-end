@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { BsArrowDownSquare } from "react-icons/bs";
 import ToDoList from "./ToDoList/ToDoList";
 import AddTodo from "./AddTodo/AddTodo";
 import { useGetToDosQuery } from "../../../features/todos/todosSlice";
@@ -13,38 +14,7 @@ const ToDo = () => {
     error,
   } = useGetToDosQuery(null, { refetchOnMountOrArgChange: true });
 
-  // const todoList = [
-  //   {
-  //     taskName: "Khabo",
-  //     addedTime: "10:45",
-  //     description: "hfajksdfh sdahfjaskdhfas sdafhskjdff",
-  //     status: "To-Do",
-  //   },
-  //   {
-  //     taskName: "Porbo",
-  //     addedTime: "10:45",
-  //     description: "hfajksdfh sdahfjaskdhfas sdafhskjdff",
-  //     status: "Completed",
-  //   },
-  //   {
-  //     taskName: "Ghumabo",
-  //     addedTime: "10:45",
-  //     description: "hfajksdfh sdahfjaskdhfas sdafhskjdff sdafhskjdff",
-  //     status: "To-Do",
-  //   },
-  //   {
-  //     taskName: "Ghumabo",
-  //     addedTime: "10:45",
-  //     description: "hfajksdfh sdahfjaskdhfas sdafhskjdff sdafhskjdff",
-  //     status: "To-Do",
-  //   },
-  //   {
-  //     taskName: "Ghumabo",
-  //     addedTime: "10:45",
-  //     description: "hfajksdfh sdahfjaskdhfas sdafhskjdff sdafhskjdff",
-  //     status: "To-Do",
-  //   },
-  // ];
+  const completed = todoList?.filter((todo) => todo.status === "Completed");
 
   return (
     <div className="w-2/5 mx-auto">
@@ -54,7 +24,18 @@ const ToDo = () => {
           <div className="spinner"></div>
         </div>
       )}
-      <div className="flex justify-end">
+      {isError && (
+        <p className="text-sm text-red/80 font-semibold">{error.error}</p>
+      )}
+      <div className="flex justify-between items-center">
+        <div className="flex justify-center items-center gap-x-1">
+          <h1 className="text-lg font-bebas font-semibold tracking-widest">
+            Completed:
+          </h1>
+          <div className="text-lg bg-secondary rounded-full h-6 w-6 flex justify-center items-center font-bold">
+            {completed?.length}
+          </div>
+        </div>
         <button onClick={() => setModalOpen(!modalOpen)}>
           <AiOutlinePlusCircle className="text-5xl text-secondary duration-200" />
         </button>
@@ -62,11 +43,7 @@ const ToDo = () => {
 
       {/* Conditionally Modal Open For New To-DO */}
       {modalOpen && (
-        <AddTodo
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
-          todoList={todoList}
-        />
+        <AddTodo modalOpen={modalOpen} setModalOpen={setModalOpen} />
       )}
     </div>
   );

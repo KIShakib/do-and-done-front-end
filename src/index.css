@@ -36,3 +36,22 @@ code {
     transform: rotate(1turn);
   }
 }
+
+.loader {
+  width: 20px;
+  padding: 4px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #46539e;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: ld 1s infinite linear;
+}
+@keyframes ld {
+  to {
+    transform: rotate(1turn);
+  }
+}

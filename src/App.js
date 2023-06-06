@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import "./App.css";
 import ToDo from "./components/pages/ToDo/ToDo";
 import TopBanner from "./components/pages/TopBanner/TopBanner";
@@ -7,6 +8,7 @@ function App() {
     <div className="">
       <TopBanner />
       <ToDo />
+      <Toaster />
     </div>
   );
 }

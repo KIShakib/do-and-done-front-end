@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
+import { useEditToDoInfoMutation } from "../../features/todos/todosSlice";
 
 const EditToDo = ({ setEditModalOpen, editModalOpen, singleToDo }) => {
   const [date, setDate] = useState(new Date());
+
+  const [editToDoInfo, { data, isError, error, isLoading, isSuccess }] =
+    useEditToDoInfoMutation();
+
+  console.log(data);
 
   const {
     register,
@@ -12,15 +18,15 @@ const EditToDo = ({ setEditModalOpen, editModalOpen, singleToDo }) => {
     watch,
     formState: { errors },
   } = useForm();
-
+  
   const addToDo = (data) => {
     const newToDo = {
-      _id: 88,
+      _id: singleToDo._id,
       taskName: data.title,
       addedTime: date,
       description: data.description,
-      status: "To-Do",
     };
+    editToDoInfo(newToDo);
   };
 
   return (
@@ -106,7 +112,7 @@ const EditToDo = ({ setEditModalOpen, editModalOpen, singleToDo }) => {
                   type="submit"
                   className="border px-8 font-semibold rounded-sm hover:bg-primary duration-200 hover:text-white"
                 >
-                  Add To-Do
+                  Edit To-Do
                 </button>
               </div>
             </form>
