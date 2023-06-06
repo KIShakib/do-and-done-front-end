@@ -17,7 +17,7 @@ const ToDo = () => {
   const completed = todoList?.filter((todo) => todo.status === "Completed");
 
   return (
-    <div className="w-2/5 mx-auto">
+    <div className="lg:w-2/5 md:w-3/5 mx-auto lg:px-0 md:px-10 px-4 mb-4">
       <ToDoList todoList={todoList} />
       {isLoading && (
         <div className="w-full h-72 flex justify-center items-center">
